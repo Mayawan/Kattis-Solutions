@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+namespace _300iq
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            BigInteger input = BigInteger.Parse(Console.ReadLine());
+            Console.WriteLine(fact(input, 1));
+            Console.Read();
+        }
+
+        static int fact(BigInteger input, int count)
+        {
+            if (input != count)
+            {
+                Console.WriteLine(input + " " + count);
+                return fact(input / count, count+1);
+            }
+            else return count;
+        }
+    }
+}
