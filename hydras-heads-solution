@@ -54,7 +54,6 @@ namespace HydrasHead
                         counter++;
                     }
                     Console.WriteLine(counter);
-
                 }
             }
         }
