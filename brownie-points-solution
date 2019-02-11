@@ -28,6 +28,7 @@ namespace BrowniePoints
                     bPoints.Add(point);
                     numPoints++;
                 }
+                
                 int a = 0;
                 int notIncluded = 0;
                 List<int> midpoint = bPoints[(numPoints - 1) / 2];
