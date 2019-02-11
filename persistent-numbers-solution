@@ -83,7 +83,7 @@ namespace Persistent
                             }
                         }
                     }
-
+		    
                     digits[9] = digits[3]/2;
                     digits[3] -= 2 * digits[9];
                     digits[8] = digits[2] / 3;
