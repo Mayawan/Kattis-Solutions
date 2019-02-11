@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace Persistent
 {
@@ -13,14 +14,7 @@ namespace Persistent
             while (true)
             {
                 Start:
-                int input;
-                decimal inputtest = decimal.Parse(Console.ReadLine());
-                if(inputtest % 1 != 0)
-                {
-                    Console.WriteLine("There is no such number");
-                    goto Start;
-                }
-                input = (int)inputtest;
+                BigInteger input =  BigInteger.Parse(Console.ReadLine());
                 if(input < -1)
                 {
                     Console.WriteLine("There is no such number.");
@@ -80,7 +74,8 @@ namespace Persistent
                                 {
                                     if(!(input == 1))
                                     {
-                                        digits[input]++;
+										int gamer = (int)(input);
+                                        digits[gamer]++;
                                     }
                                     division = true;
                                     
@@ -89,15 +84,15 @@ namespace Persistent
                         }
                     }
 
-                    digits[9] = (int)Math.Floor((decimal)digits[3] / 2);
+                    digits[9] = digits[3]/2;
                     digits[3] -= 2 * digits[9];
-                    digits[8] = (int)Math.Floor((decimal)digits[2] / 3);
+                    digits[8] = digits[2] / 3;
                     digits[2] -= 3 * digits[8];
                     int ga = Math.Min(digits[2], digits[3]);
                     digits[6] = ga;
                     digits[2] -= ga;
                     digits[3] -= ga;
-                    digits[4] = (int)Math.Floor((decimal)digits[2] / 2);
+                    digits[4] = digits[2] / 2;
                     digits[2] -= 2 * digits[4];
                     int[] keys = digits.Keys.ToArray();
                     Array.Sort(keys);
