@@ -1,0 +1,58 @@
+import copy
+import operator
+
+a = [int(i) for i in input().split()]
+numMovies = a[0]
+numHorror = a[1]
+numSimilar = a[2]
+
+horrorMovies = [int(i) for i in input().split()]
+#-1 is default, unassigned value
+horrorIndex = {i:-1 for i in range(numMovies)}
+for h in horrorMovies:
+    horrorIndex[h] = 0
+similarities = []
+newHorrorList = []
+for i in range(numSimilar):
+    gamer = True
+    sim = [int(j) for j in input().split()]
+    for h in horrorMovies:
+        if h == sim[0]:
+            if horrorIndex[sim[1]] == -1:
+                horrorIndex[sim[1]] = 1
+                newHorrorList.append(sim[1])
+                gamer = False
+        elif h == sim[1]:
+            if horrorIndex[sim[0]] == -1:
+                horrorIndex[sim[0]] = 1
+                newHorrorList.append(sim[0])
+                gamer = False
+    if gamer:
+        similarities.append(sim)
+horrorMovies = copy.copy(newHorrorList)
+similarIndex = 2
+atLeastOneSimilarity = True
+while atLeastOneSimilarity:
+    newHorrorList = []
+    atLeastOneSimilarity = False
+    for s in reversed(similarities):
+        for h in horrorMovies:
+            if h == s[0]:
+                if horrorIndex[s[1]] == -1:
+                    horrorIndex[s[1]] = similarIndex
+                    newHorrorList.append(s[1])
+                    atLeastOneSimilarity = True
+                    similarities.remove(s)
+            elif h == s[1]:
+                if horrorIndex[s[0]] == -1:
+                    horrorIndex[s[0]] = similarIndex
+                    newHorrorList.append(s[0])
+                    atLeastOneSimilarity = True
+                    similarities.remove(s)
+
+    horrorMovies = copy.copy(newHorrorList)
+    similarIndex += 1
+if -1 in horrorIndex.values():
+    print(list(horrorIndex.keys())[list(horrorIndex.values()).index(-1)])
+else:
+    print(max(horrorIndex.items(), key=operator.itemgetter(1))[0])
