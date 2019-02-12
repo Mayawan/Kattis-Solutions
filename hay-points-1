@@ -1,0 +1,49 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _700iq
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input1 = Console.ReadLine().Split(' ').Select(x => int.Parse(x)).ToArray();
+            int m = input1[0];
+            int n = input1[1];
+
+
+            Dictionary<string, int> dictionary = new Dictionary<string, int>();
+            for(int i = 0; i < m; i++)
+            {
+                string[] word = Console.ReadLine().Split(' ');
+                dictionary.Add(word[0], int.Parse(word[1]));
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                string msg = " ";
+                while (!msg.Last().Equals('.'))
+                {
+                    msg += " " + Console.ReadLine();
+                }
+
+                string[] job = msg.Split(' ');
+                int salary = 0;
+
+                for (int j = 0; j < job.Length; j++)
+                {
+                    if (dictionary.ContainsKey(job[j]))
+                    {
+                        salary += dictionary[job[j]];
+                    }
+                }
+
+                Console.WriteLine(salary);
+            }
+        }
+    }
+}
