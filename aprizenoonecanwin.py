@@ -1,5 +1,4 @@
 a = input().split()
-
 s = input().split()
 u = True
 game = int(a[1])
