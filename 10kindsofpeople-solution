@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _10kindsofpeople
+{
+    class Program
+    {
+        static bool[][] map;
+
+        static int[][] groups;
+
+        static void Main(string[] args)
+        {
+            int[] rc = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+
+            map = new bool[rc[0]][];
+            groups = new int[rc[0]][];
+
+            for(int i = 0; i < rc[0]; i++)
+            {
+                map[i] = Console.ReadLine().Select(x => x == '1').ToArray();
+            }
+
+            for(int i = 0; i < rc[0]; i++)
+            {
+                groups[i] = new int[rc[1]];
+            }
+
+            int n = int.Parse(Console.ReadLine());
+
+            int groupCounter = 1;
+
+            for(int i = 0; i < n; i++)
+            {
+                int[] coords = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+                int r1 = coords[0] - 1;
+                int c1 = coords[1] - 1;
+                int r2 = coords[2] - 1;
+                int c2 = coords[3] - 1;
+
+                if(groups[r1][c1] == 0) //not in group
+                {
+                    setGroup(r1, c1, map[r1][c1], groupCounter);
+                    groupCounter++;
+                }
+                
+                if(groups[r1][c1] == groups[r2][c2])
+                {
+                    if (!map[r1][c1])
+                    {
+                        Console.WriteLine("binary");
+                    }
+                    else
+                    {
+                        Console.WriteLine("decimal");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("neither");
+                }
+            }
+        }
+
+        static void setGroup(int r, int c, bool type, int group)
+        {
+
+            if (r < 0 || r == map.Length) return;
+
+            if (c < 0 || c == map[0].Length) return;
+
+            if (map[r][c] != type || groups[r][c] != 0) return;
+
+            groups[r][c] = group;
+
+            setGroup(r - 1, c, type, group);
+            setGroup(r + 1, c, type, group);
+            setGroup(r, c - 1, type, group);
+            setGroup(r, c + 1, type, group);
+        }
+    }
+}
