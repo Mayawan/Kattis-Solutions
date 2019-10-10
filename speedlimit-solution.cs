@@ -27,7 +27,7 @@ namespace speedlimit
                     
                 }
 
-                Console.WriteLine(count);
+                Console.WriteLine(count + " miles");
             }
         }
     }
