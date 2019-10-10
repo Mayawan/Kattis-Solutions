@@ -22,7 +22,7 @@ namespace speedlimit
                 {
                     int[] st = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
 
-                    count += st[0] * (st[1] - hours); Console.WriteLine(st[1] + "-" + hours);
+                    count += st[0] * (st[1] - hours);
                     hours = st[1];
                     
                 }
