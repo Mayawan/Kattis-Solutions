@@ -1,24 +1,29 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <sstream>
+#include <queue>
 
 using namespace std;
 
 int n, h, l;
 vector<int> dist;
 
-void hop(vector<vector<bool> >& adj, int current, int counter)
+void get_dist(vector<vector<bool> >& adj, int key)
 {
-  for(int i = 0; i < n; i++)
-  {
-    if(adj[current][i] 
-    //&& find(prev.begin(),prev.end(),i) == prev.end() 
-    && dist[i] > counter)
-    {
-      dist[i] = counter;
+  queue<int> q;
+  q.push(key);
 
-      hop(adj,i, counter + 1);
+  while(!q.empty())
+  {
+    int curr = q.front();
+    q.pop();
+
+    for(int i = 0; i < n; i++)
+    {
+      if(adj[curr][i] && dist[i] > dist[curr] + 1)
+      {
+        dist[i] = dist[curr] + 1;
+        q.push(i);
+      }
     }
   }
 }
@@ -57,9 +62,13 @@ int main()
     links[a2][a1] = true;
   }
 
-  hop(links, n, 0);
+  get_dist(links,n);
 
-  int max = *max_element(dist.begin(),dist.end());
-  
-  cout << distance(dist.begin(),find(dist.begin(),dist.end(),max));
+  int max = 0;
+  for(int i = 0; i < n; i++){
+    if(dist[i] > dist[max])
+      max = i;
+  }
+
+  cout << max << endl;
 }
