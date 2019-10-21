@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main() {
+  int len;
+  cin >> len;
+  vector<int> towers;
+  for(int i = 0; i < len; i++){
+    int tower;
+    cin >> tower;
+    towers.push_back(tower);
+  }
+  sort(towers.begin(), towers.end());
+  int startIndex = 0;
+  int endIndex = len - 1;
+  int max = towers[endIndex];
+  int mod = 0;
+  int count = 0;
+  while(len > 0){
+    count++;
+    if (len > max){
+      mod += 1;
+      while(towers[startIndex] - mod == 0){
+        startIndex++;
+      }
+      max -= 1;
+    }
+    else{
+      endIndex--;
+      max = towers[endIndex] - mod;
+    }
+    len = endIndex - startIndex + 1;
+  }
+  cout << count;
+}
